@@ -29,6 +29,12 @@ hunter_add_package(Boost COMPONENTS system filesystem)
 find_package(GTest CONFIG REQUIRED)
 find_package(Boost CONFIG REQUIRED system filesystem)
 
+set(Boost_USE_STATIC_LIBS ON)
+set(Boost_USE_MULTITHREADED ON)
+set(Boost_USE_STATIC_RUNTIME ON)
+FIND_PACKAGE(Boost REQUIRED COMPONENTS system filesystem)
+include_directories(${Boost_INCLUDE_DIRS})
+
 add_library(file_system STATIC
   # enum your files and delete this comment
   ${CMAKE_CURRENT_SOURCE_DIR}/sources/source.cpp
@@ -44,7 +50,7 @@ target_include_directories(tests
   PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-target_link_libraries(tests GTest::main Boost::system Boost::filesystem file_system)
+target_link_libraries(tests GTest::main Boost::system Boost::filesystem ${Boost_LIBRARIES} file_system)
 
 enable_testing()
 add_test(NAME unit_tests COMMAND tests) 

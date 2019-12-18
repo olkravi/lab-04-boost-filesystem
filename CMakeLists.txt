@@ -29,7 +29,7 @@ hunter_add_package(Boost COMPONENTS system filesystem)
 find_package(GTest CONFIG REQUIRED)
 find_package(Boost CONFIG REQUIRED system filesystem)
 
-add_library(filesystem STATIC
+add_library(file_system STATIC
   # enum your files and delete this comment
   ${CMAKE_CURRENT_SOURCE_DIR}/sources/source.cpp
 )

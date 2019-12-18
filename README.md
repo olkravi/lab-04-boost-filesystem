@@ -4,7 +4,9 @@
 
 ## Задание
 
-Использовать библиотеку **boost::filesystem** для анализа директории с [FTP](https://ru.wikipedia.org/wiki/FTP)-файлами, содержащими финансовую информацию. Подробная инструкция по библиотеке **boost::filesystem** есть, например, [тут](https://www.boost.org/doc/libs/1_68_0/libs/filesystem/doc/tutorial.html).
+Использовать библиотеку **boost::filesystem** для анализа директории с [FTP](https://ru.wikipedia.org/wiki/FTP)-файлами,
+содержащими финансовую информацию. Подробная инструкция по библиотеке **boost::filesystem** 
+есть, например, [тут](https://www.boost.org/doc/libs/1_68_0/libs/filesystem/doc/tutorial.html).
 
 Структура анализируемой директории в общем случае может имеет вид:
 

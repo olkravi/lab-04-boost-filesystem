@@ -100,6 +100,9 @@ class my_FTP{
         starting_path = _starting_path;
         is_this_broker_active = false;
         iterate_it(starting_path);
+        print_all();
+        cout << endl;
+        print_by_account();
     }
     void iterate_it(path &p){
         try

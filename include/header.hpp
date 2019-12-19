@@ -143,7 +143,7 @@ public:
                     current_broker.erase(0, current_broker.rfind("/")+1);
                     for (directory_entry& x : directory_iterator(p))
                     {
-						path sm_path = x.path();
+                        path sm_path = x.path();
                         iterate_it(sm_path);
                     }
                     is_this_broker_active = false;

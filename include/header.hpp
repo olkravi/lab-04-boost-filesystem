@@ -108,7 +108,7 @@ class my_FTP{
             {
                 if (is_regular_file(p))
                 {
-                    string filename = p.filename();
+                    string filename = p.filename().string();
                     string str_that_must_be = string("balance_");
                     if (filename.find(str_that_must_be) != string::npos)
                     {

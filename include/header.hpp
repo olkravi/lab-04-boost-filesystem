@@ -16,40 +16,41 @@ using boost::filesystem::path;
 
 class account{
     account(){
-        _number_of_account = 0; 
+        _number_of_account = 0;
         _last_date = 0;
     }
-    account(string &filename){
+    explicit account(string &filename){
         _file_names.push_back(filename);
         set_number_of_accaunt(filename);
         set_last_date(filename);
     }
     void set_number_of_accaunt(string &filename){
         string number;
-        number.assign(filename, 
+        number.assign(filename,
                       filename.find("_") + 1, filename.rfind("_") - 1);
-        _number_of_account = atoi(number.c_str());              
+        _number_of_account = atoi(number.c_str());
     }
     void set_last_date(string &filename)
     {
         string number;
-        number.assign(filename, 
+        number.assign(filename,
                       filename.rfind("_") + 1, filename.rfind(".") - 1);
-        _last_date = atoi(number.c_str()); 
+        _last_date = atoi(number.c_str());
     }
-	void print_files(string &name){
-		for (size_t k = 0; k < _file_names.size(); ++k)
-		{
-			cout << name << " " << _file_names[k] << endl;		
-		}
-	}
-	void print_account(string &name){
-		cout << "broker:" << name;
-		cout << " account:" << _number_of_account;
-		cout << " files:" << _file_names.size();
-		cout << " lastdate: " << _last_date << endl;
-	}
-				
+    void print_files(string &name){
+        for (size_t k = 0; k < _file_names.size(); ++k)
+        {
+            cout << name << " " << _file_names[k] << endl;
+        }
+    }
+    void print_account(string &name){
+        cout << "broker:" << name;
+        cout << " account:" << _number_of_account;
+        cout << " files:" << _file_names.size();
+        cout << " lastdate: " << _last_date << endl;
+    }
+
+public:
     uint32_t _number_of_account;
     //uint32_t _files_quantity;
     vector <string> _file_names;
@@ -57,7 +58,7 @@ class account{
 };
 
 class broker{
-    broker(string &_name){
+    explicit broker(string &_name){
         name = _name;
     }
     void add_account(account &new_account){
@@ -68,7 +69,7 @@ class broker{
         } else {
             for (size_t i = 0; i < _accounts.size(); ++i)
             {
-                if (_accounts[i]._number_of_account == 
+                if (_accounts[i]._number_of_account ==
                     new_account._number_of_account)
                 {
                     _accounts[i]._file_names.push_back(
@@ -92,12 +93,12 @@ class broker{
 };
 
 class my_FTP{
-    my_FTP(path &_starting_path){
-		starting_path = _starting_path;
+    explicit my_FTP(path &_starting_path){
+        starting_path = _starting_path;
         is_this_broker_active = false;
-		iterate_it(starting_path);
-	}
-	void iterate_it(path &p){
+        iterate_it(starting_path);
+    }
+    void iterate_it(path &p){
         try
         {
             if (exists(p))
@@ -127,7 +128,6 @@ class my_FTP{
                                     _brokers[_brokers.size() - 1].add_account(
                                                           curr_account);
                                 }
-                                
                             }
                         }
                     }
@@ -135,7 +135,7 @@ class my_FTP{
                     current_broker = p.string();
                     current_broker.erase(0, current_broker.rfind("/")+1);
                     for (directory_entry& x : directory_iterator(p))
-                        iterate_it(x.path()); 
+                        iterate_it(x.path());
                     is_this_broker_active = false;
                     current_broker = string("");
                 } else {
@@ -148,25 +148,25 @@ class my_FTP{
         } catch (const filesystem_error& ex) {
             cout << ex.what() << '\n';
         }
-	}
-	void print_all(){
-	    for (size_t i = 0; i < _brokers.size(); ++i)
-	    {
-		    for (size_t j = 0; j < _brokers[i]._accounts.size(); ++j)
-		    {
-		        _brokers[i]._accounts[j].print_files(_brokers[i].name());
-		    }
-		}	
-	}
-	void print_by_account(){
-		for (size_t i = 0; i < _brokers.size(); ++i)
-	    {
-		    for (size_t j = 0; j < _brokers[i]._accounts.size(); ++j)
-		    {
-		        _brokers[i]._accounts[j].print_account(_brokers[i].name());
-		    }
-		}
-	}
+    }
+    void print_all(){
+        for (size_t i = 0; i < _brokers.size(); ++i)
+        {
+            for (size_t j = 0; j < _brokers[i]._accounts.size(); ++j)
+            {
+                _brokers[i]._accounts[j].print_files(_brokers[i].name());
+            }
+        }
+    }
+    void print_by_account(){
+        for (size_t i = 0; i < _brokers.size(); ++i)
+        {
+            for (size_t j = 0; j < _brokers[i]._accounts.size(); ++j)
+            {
+                _brokers[i]._accounts[j].print_account(_brokers[i].name());
+            }
+        }
+    }
 
 private:
     vector <broker> _brokers;

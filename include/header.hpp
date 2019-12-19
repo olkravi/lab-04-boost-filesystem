@@ -18,6 +18,8 @@ using boost::filesystem::directory_entry;
 using boost::filesystem::filesystem_error;
 
 class account{
+
+public:
     account(){
         _number_of_account = 0;
         _last_date = 0;
@@ -61,6 +63,8 @@ public:
 };
 
 class broker{
+
+public:
     explicit broker(string &_name){
         name = _name;
     }
@@ -96,6 +100,8 @@ class broker{
 };
 
 class my_FTP{
+
+public:
     explicit my_FTP(path &_starting_path){
         starting_path = _starting_path;
         is_this_broker_active = false;
@@ -111,26 +117,24 @@ class my_FTP{
             {
                 if (is_regular_file(p))
                 {
-                    string filename = p.filename().string();
-                    string str_that_must_be = string("balance_");
-                    if (filename.find(str_that_must_be) != string::npos)
+                    string name_of_file = p.filename().string();
+                    if (name_of_file.find("balance_") != string::npos)
                     {
-                        str_that_must_be = string(".old");
-                        if (filename.find() == string::npos)
+                        if (name_of_file.find(".old") == string::npos)
                         {
                             str_that_must_be = string(".txt");
-                            if (p.extension() == str_that_must_be)
+                            if (p.extension().string() == str_that_must_be)
                             {
                                 if (is_this_broker_active)
                                 {
-                                    account curr_account(filename);
+                                    account curr_account(name_of_file);
                                     _brokers[_brokers.size() - 1].add_account(
                                                           curr_account);
                                 } else {
                                     broker current(current_broker);
                                     _brokers.push_back(current);
                                     is_this_broker_active = true;
-                                    account curr_account(filename);
+                                    account curr_account(name_of_file);
                                     _brokers[_brokers.size() - 1].add_account(
                                                           curr_account);
                                 }

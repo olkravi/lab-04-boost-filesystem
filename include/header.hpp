@@ -11,8 +11,11 @@ using std::cout;
 using std::vector;
 using std::string;
 using std::endl;
-using namespace boost::filesystem;
+//using namespace boost::filesystem;
 using boost::filesystem::path;
+using boost::filesystem::directory_iterator;
+using boost::filesystem::directory_entry;
+using boost::filesystem::filesystem_error;
 
 class account{
     account(){

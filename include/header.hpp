@@ -19,31 +19,31 @@ class account{
         _number_of_account = 0; 
         _last_date = 0;
     }
-    account(string filename){
+    account(string &filename){
         _file_names.push_back(filename);
         set_number_of_accaunt(filename);
         set_last_date(filename);
     }
-    void set_number_of_accaunt(string filename){
+    void set_number_of_accaunt(string &filename){
         string number;
         number.assign(filename, 
                       filename.find("_") + 1, filename.rfind("_") - 1);
         _number_of_account = atoi(number.c_str());              
     }
-    void set_last_date(string filename)
+    void set_last_date(string &filename)
     {
         string number;
         number.assign(filename, 
                       filename.rfind("_") + 1, filename.rfind(".") - 1);
         _last_date = atoi(number.c_str()); 
     }
-	void print_files(string name){
+	void print_files(string &name){
 		for (size_t k = 0; k < _file_names.size(); ++k)
 		{
 			cout << name << " " << _file_names[k] << endl;		
 		}
 	}
-	void print_account(string name){
+	void print_account(string &name){
 		cout << "broker:" << name;
 		cout << " account:" << _number_of_account;
 		cout << " files:" << _file_names.size();
@@ -57,6 +57,36 @@ class account{
 };
 
 class broker{
+    broker(string &_name){
+        name = _name;
+    }
+    void add_account(account &new_account){
+        bool done = false;
+        if (_accounts.size() == 0)
+        {
+            _accounts.push_back(new_account);
+        } else {
+            for (size_t i = 0; i < _accounts.size(); ++i)
+            {
+                if (_accounts[i]._number_of_account == 
+                    new_account._number_of_account)
+                {
+                    _accounts[i]._file_names.push_back(
+                                          new_account._file_names[0]);
+                    if (_accounts[i]._last_date < new_account._last_date)
+                    {
+                        _accounts[i]._last_date = new_account._last_date;
+                    }
+                    done = true;
+                    break;
+                }
+            }
+        }
+        if (!done)
+        {
+            _accounts.push_back(new_account);
+        }
+    }
     string name;
     vector <account> _accounts;
 };
@@ -86,13 +116,16 @@ class my_FTP{
                             {
                                 if (is_this_broker_active)
                                 {
-                                    
+                                    account curr_account(filename);
+                                    _brokers[_brokers.size() - 1].add_account(
+                                                          curr_account);
                                 } else {
-                                    _brokers.push_back(current_broker);
+                                    broker current(current_broker);
+                                    _brokers.push_back(current);
                                     is_this_broker_active = true;
                                     account curr_account(filename);
-                                    
-                                    _brokers[current_broker]._accounts;
+                                    _brokers[_brokers.size() - 1].add_account(
+                                                          curr_account);
                                 }
                                 
                             }
@@ -103,10 +136,11 @@ class my_FTP{
                     current_broker.erase(0, current_broker.rfind("/")+1);
                     for (directory_entry& x : directory_iterator(p))
                         iterate_it(x.path()); 
+                    is_this_broker_active = false;
                     current_broker = string("");
                 } else {
                     cout << p << " exists, ";
-                    cout << "but is not a regular file or directory\n";
+                    cout << "but is a symlink\n";
                 }
             } else {
                 cout << p << " does not exist\n";

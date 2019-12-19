@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sed 's/\t/    /g' test.cpp > test1.cpp
+rm test.cpp
+mv test1.cpp test.cpp

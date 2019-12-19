@@ -119,7 +119,7 @@ public:
                     {
                         if (name_of_file.find(".old") == string::npos)
                         {
-                            str_that_must_be = string(".txt");
+                            string str_that_must_be = string(".txt");
                             if (p.extension().string() == str_that_must_be)
                             {
                                 if (is_this_broker_active)

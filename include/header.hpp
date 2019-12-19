@@ -142,7 +142,10 @@ public:
                     current_broker = p.string();
                     current_broker.erase(0, current_broker.rfind("/")+1);
                     for (directory_entry& x : directory_iterator(p))
-                        iterate_it(x.path());
+                    {
+						path sm_path = x.path();
+                        iterate_it(sm_path);
+                    }
                     is_this_broker_active = false;
                     current_broker = string("");
                 } else {
@@ -161,7 +164,7 @@ public:
         {
             for (size_t j = 0; j < _brokers[i]._accounts.size(); ++j)
             {
-                _brokers[i]._accounts[j].print_files(_brokers[i].name());
+                _brokers[i]._accounts[j].print_files(_brokers[i].name);
             }
         }
     }
@@ -170,7 +173,7 @@ public:
         {
             for (size_t j = 0; j < _brokers[i]._accounts.size(); ++j)
             {
-                _brokers[i]._accounts[j].print_account(_brokers[i].name());
+                _brokers[i]._accounts[j].print_account(_brokers[i].name);
             }
         }
     }

@@ -18,7 +18,6 @@ using boost::filesystem::directory_entry;
 using boost::filesystem::filesystem_error;
 
 class account{
-
 public:
     account(){
         _number_of_account = 0;
@@ -63,7 +62,6 @@ public:
 };
 
 class broker{
-
 public:
     explicit broker(string &_name){
         name = _name;
@@ -100,7 +98,6 @@ public:
 };
 
 class my_FTP{
-
 public:
     explicit my_FTP(path &_starting_path){
         starting_path = _starting_path;

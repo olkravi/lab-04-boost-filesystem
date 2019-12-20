@@ -1,5 +1,8 @@
 # Лабораторная работа №4
+[![Travis][build-badge]][build]
 
+[build-badge]: https://img.shields.io/travis/kirill050/lab-04-boost-filesystem/master.png?style=flat-square
+[build]: https://travis-ci.org/kirill050/lab-04-boost-filesystem
 Лабораторная работа посвящена изучению работы с файловой системой на языке **C++**. В стандарте **C++17** появилась библиотека для работы с [файловой системой](https://en.cppreference.com/w/cpp/filesystem). Но так как на данный момент еще не все компиляторы поддерживают новейший стандарт **C++** в этой лабораторный используется библиотека **boost::filesystem**, которая была взята за основу при разработке стандарта.
 
 ## Задание
